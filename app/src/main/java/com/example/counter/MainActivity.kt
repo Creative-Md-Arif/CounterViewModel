@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.lifecycle.Observer
 import com.example.counter.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
@@ -16,11 +17,13 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         setContentView(binding.root)
-        binding.countTxt.text = countViewModel.counter.toString()
+        countViewModel.count.observe( this , Observer {
+            binding.countTxt.text = it.toString()
+        })
 
         binding.countBtn.setOnClickListener {
             countViewModel.increment()
-            binding.countTxt.text = countViewModel.counter.toString()
+
         }
     }
 }
